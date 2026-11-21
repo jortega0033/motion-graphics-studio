@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motion Graphics Studio</title>
+  <link rel="stylesheet" href="/static/app.css">
+  <script type="module" src="/static/js/main.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>Motion Graphics Studio</h1>
+  </header>
+
+  <main>
+    <section id="projects-view" aria-labelledby="projects-heading">
+      <h2 id="projects-heading" tabindex="-1">Projects</h2>
+
+      <form id="create-form" class="panel create-form">
+        <h3>New project</h3>
+        <div class="field">
+          <label for="new-project-name">Project title</label>
+          <input id="new-project-name" type="text" maxlength="80" autocomplete="off" value="Untitled project">
+        </div>
+        <div class="field">
+          <label for="template-select">Template</label>
+          <select id="template-select">
+            <option value="blank">Blank</option>
+            <option value="title_card">Title Card</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="preset-select">Preset</label>
+          <select id="preset-select">
+            <option value="landscape">Landscape 1280×720</option>
+            <option value="portrait">Portrait 720×1280</option>
+          </select>
+        </div>
+        <button id="create-project" type="submit" class="primary">Create project</button>
+      </form>
+
+      <p id="projects-status" role="status" class="status-line"></p>
+      <p id="projects-error" role="alert" class="error-line"></p>
+      <ul id="project-list" class="project-list"></ul>
+    </section>
+
+    <section id="editor-view" aria-labelledby="editor-heading" hidden>
+      <h2 id="editor-heading" class="visually-hidden" tabindex="-1">Editor</h2>
+
+      <div class="toolbar panel">
+        <button id="back-to-projects" type="button">Projects</button>
+        <div class="field inline">
+          <label for="scene-title">Scene title</label>
+          <input id="scene-title" type="text" maxlength="80" autocomplete="off">
+        </div>
+        <div class="field inline">
+          <label for="background-color">Background color</label>
+          <input id="background-color" type="color" value="#14181f">
+        </div>
+        <div class="save-group">
+          <button id="save-button" type="button" class="primary">Save</button>
+          <span id="save-status" role="status" aria-live="polite" class="save-status"></span>
+        </div>
+      </div>
+
+      <div class="error-wrap">
+        <p id="editor-error" role="alert" class="error-line"></p>
+        <button id="reload-saved" type="button" hidden>Reload saved version</button>
+      </div>
+
+      <div class="editor-grid">
+        <section class="panel layers-panel" aria-labelledby="layers-heading">
+          <h3 id="layers-heading">Layers</h3>
+          <div class="button-row">
+            <button id="add-text-layer" type="button">Add text layer</button>
+            <button id="add-rectangle-layer" type="button">Add rectangle</button>
+            <button id="add-ellipse-layer" type="button">Add ellipse</button>
+          </div>
+          <ul id="layer-list" class="layer-list" aria-label="Layers"></ul>
+          <p id="layer-empty" class="hint">No layers yet. Add one above.</p>
+          <div class="button-row">
+            <button id="move-up" type="button">Move up</button>
+            <button id="move-down" type="button">Move down</button>
+            <button id="duplicate-layer" type="button">Duplicate</button>
+            <button id="delete-layer" type="button" class="danger">Delete</button>
+          </div>
+          <p class="hint">Alt+Up and Alt+Down reorder, Delete removes the focused layer, Ctrl+S saves.</p>
+        </section>
+
+        <section class="stage-panel" aria-label="Stage">
+          <div class="stage-frame">
+            <canvas id="stage-canvas" width="1280" height="720" role="img" aria-label="Scene preview"></canvas>
+          </div>
+        </section>
+
+        <section class="panel inspector-panel" aria-labelledby="inspector-heading">
+          <h3 id="inspector-heading">Inspector</h3>
+          <p id="inspector-empty" class="hint">Select a layer to edit its properties.</p>
+          <div class="field">
+            <label for="layer-label">Layer label</label>
+            <input id="layer-label" type="text" maxlength="60" autocomplete="off">
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="prop-x">X</label>
+              <input id="prop-x" type="number" step="any">
+            </div>
+            <div class="field">
+              <label for="prop-y">Y</label>
+              <input id="prop-y" type="number" step="any">
+            </div>
+            <div class="field" id="row-width">
+              <label for="prop-width">Width</label>
+              <input id="prop-width" type="number" step="any" min="1">
+            </div>
+            <div class="field" id="row-height">
+              <label for="prop-height">Height</label>
+              <input id="prop-height" type="number" step="any" min="1">
+            </div>
+            <div class="field">
+              <label for="prop-opacity">Opacity (0 to 1)</label>
+              <input id="prop-opacity" type="number" step="any" min="0" max="1">
+            </div>
+            <div class="field">
+              <label for="prop-fill">Fill color</label>
+              <input id="prop-fill" type="color" value="#f5a524">
+            </div>
+          </div>
+          <div class="field" id="row-text">
+            <label for="prop-text">Text</label>
+            <textarea id="prop-text" rows="4" maxlength="256"></textarea>
+          </div>
+          <div class="field-grid">
+            <div class="field" id="row-font-size">
+              <label for="prop-font-size">Font size</label>
+              <input id="prop-font-size" type="number" step="any" min="8" max="192">
+            </div>
+            <div class="field" id="row-align">
+              <label for="prop-align">Alignment</label>
+              <select id="prop-align">
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+              </select>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
