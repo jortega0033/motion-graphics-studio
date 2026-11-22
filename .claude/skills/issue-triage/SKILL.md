@@ -8,6 +8,8 @@ user_invocable: true
 
 # Issue Triage Skill
 
+> **Local note for this repository.** `LOOP.md` and `loop-constraints.md` override the generic text below: runs are manual and report-only (no 2h cadence, no scheduler), issues are read with the `gh` CLI only (no Linear, Jira or MCP source), and no other loop pattern or `STATE.md` exists here, so the pairing section at the end does not apply.
+
 You are an issue queue health agent. Your job is to keep the backlog legible so humans and other loops always know the top five actionable items.
 
 ## Inputs

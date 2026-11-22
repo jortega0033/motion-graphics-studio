@@ -1,6 +1,6 @@
 # Agency Agents roles in this repository
 
-The role definitions in `.claude/agents/` (except `loop-verifier.md`, which comes from Loop Engineering) are copied from **Agency Agents**.
+The role definitions in `.claude/agents/` (except `loop-verifier.md`, which comes from Loop Engineering) are copied from **Agency Agents**. `loop-verifier` is limited to `Read, Grep, Glob` like the reviewers below, is unused at L1 and cannot run tests; see `LOOP.md`.
 
 - Upstream: https://github.com/msitarzewski/agency-agents
 - Pinned revision: `8ae6164602c95ca78828b148b9052460ee426885` (main, committed 2026-11-09)

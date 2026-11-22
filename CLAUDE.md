@@ -4,7 +4,7 @@ A local, offline editor for title cards and simple motion graphics. Python stand
 
 ## Hard constraints
 
-- **No dependencies.** No `pip` or `npm` packages, no build step, no bundler. Runtime is Python 3.12+ standard library and plain ES modules. Test tooling follows the same rule: Python `unittest`, Node's built-in test runner if Node tests are added, the installed Chrome and FFmpeg.
+- **No dependencies.** No `pip` or `npm` packages, no build step, no bundler. Runtime is Python 3.12+ standard library and plain ES modules. Test tooling follows the same rule: Python `unittest`, Node's built-in test runner if Node tests are added, the installed Chrome and FFmpeg. Give the Node runner a quoted file pattern, `node --test "tests/js/*.test.mjs"`: with a directory argument (`node --test tests/js`) Node v22.23.4 reports `MODULE_NOT_FOUND`, and a pattern that matches nothing exits 0 with zero tests.
 - **Offline and loopback only.** The service binds `127.0.0.1`. Nothing may load from another origin; `tests/test_static.py` fails on external URLs in the static bundle.
 - **CSP-safe browser code.** No inline `<script>`, `<style>` or `style=` attributes, and no `innerHTML`, `outerHTML`, `insertAdjacentHTML`, `document.write` or `eval`. The same test file enforces this.
 - **Fictional data only** in fixtures, templates, tests and documentation.
@@ -55,7 +55,7 @@ Details and line references are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 - One branch per issue, named `feat/<issue>-<slug>`, `fix/<issue>-<slug>` or `docs/<slug>`. Open a pull request against `main` that references the issue. Do not commit to `main` directly.
 - Commit subjects follow the existing style: `feat: ...`, `fix: ...`, `docs: ...`, `test: ...`, `chore: ...`.
 - Do not push, merge, close issues or delete branches unless the owner asked for it in the current session.
-- Never commit `data/`, `*.sqlite*`, exported media, `test-results/` or anything under `.prep/` (all ignored).
+- Never commit `data/`, `*.sqlite*`, `test-results/` or anything under `.prep/` (all ignored by `.gitignore`), and never commit exported media or staged frames. Media is not ignored by a pattern of its own: nothing covers `*.webm` or `*.png`, so it is ignored only inside `data/`. Keep every data directory you create in the checkout under `./data/` (for example `--data-dir ./data/demo`), or use a temporary directory outside the checkout.
 
 ## Evidence before calling a ticket done
 
@@ -69,5 +69,5 @@ Details and line references are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Agents and the loop
 
-- Project agent roles live in `.claude/agents/`. Reviewer roles are read-only (`Read, Grep, Glob`). Their generic advice never overrides this file: for example, a role that suggests `npx` tools or a framework does not lift the no-dependency rule.
+- Project agent roles live in `.claude/agents/`. Reviewer roles, including the loop's `loop-verifier`, are read-only (`Read, Grep, Glob`). Their generic advice never overrides this file: for example, a role that suggests `npx` tools or a framework does not lift the no-dependency rule.
 - The Loop Engineering setup is L1, report-only and manual. See `LOOP.md`. No scheduler, no automated fixes, no auto-merge.

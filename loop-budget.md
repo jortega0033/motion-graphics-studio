@@ -29,5 +29,7 @@ L2 is not enabled, so the loop never spawns the verifier on its own.
 ## Estimate spend
 
 ```bash
-npx @cobusgreyling/loop-cost --pattern issue-triage --level L1
+npx --yes @cobusgreyling/loop-cost@1.2.0 --pattern issue-triage --level L1
 ```
+
+Not run during the preparation of this repository. The package exists on npm (`@cobusgreyling/loop-cost`, latest `1.2.0`, MIT, checked with `npm view` on 2026-11-22); its options and output were not verified. It is an estimate tool only and nothing in the loop depends on it.

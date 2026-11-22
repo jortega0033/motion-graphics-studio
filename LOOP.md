@@ -33,7 +33,7 @@ Leave plan mode only to let it write the two state files. Afterwards run `npx --
 - Any change to `motion_studio/`, `tests/` or `docs/PRD.md` — human or a normal ticket branch, never the loop
 - Duplicate closure — human confirms
 - Stale issue closure — human confirms
-- Raising the level above L1 — the owner records the decision here first
+- Raising the level above L1 — the owner records the decision here first. That decision includes whether `loop-verifier` gets `Bash` to run the tests: with a shell the role is no longer read-only (a shell can write files, run git and call `gh`) and is held to checking only by its instructions
 
 ## Pairing
 
@@ -54,7 +54,7 @@ Standalone. No other loop pattern is configured and there is no `STATE.md` in th
 | `issue-triage-state.md` | the report a run rewrites |
 | `loop-run-log.md` | one appended entry per run |
 | `.claude/skills/issue-triage/`, `loop-constraints/`, `loop-budget/`, `loop-intake/` | the skills, as generated |
-| `.claude/agents/loop-verifier.md` | checker role for L2 and above; unused at L1. `tools: Read, Grep, Glob, Bash` was added so it cannot edit files |
+| `.claude/agents/loop-verifier.md` | checker role for L2 and above; unused at L1. `tools: Read, Grep, Glob` and a local section were added: it cannot edit files, run git or `gh`, or run the tests, so today its only possible verdict on a change is ESCALATE_HUMAN |
 
 Removed after `init`: the `.grok/` and `.codex/` variants (this is a Claude-only setup). `AGENTS.md` was generated with `npm` commands that do not exist here and was rewritten to point at `CLAUDE.md`.
 
@@ -62,13 +62,13 @@ The generated constraint about `loop-ledger.json`, `loop-context --check` and th
 
 ## Recorded health checks
 
-Run on 2026-11-22 on the prep branch, Windows 11, Node v22.23.4, with the files as committed.
+Run on 2026-11-22 on the prep branch, Windows 11, Node v22.23.4, after the scaffold was committed.
 
 `npx --yes @cobusgreyling/loop@0.2.0 doctor .` exited 0:
 
 ```
-Ready:   100/100 L2
-         Strong structure but no proven loop runs yet — run one L1 cycle and commit state before L3.
+Ready:   100/100 L3
+         Strong loop readiness — good candidate for L3 with explicit gates.
 Sync:    n/a
 Files:   state=issue-triage-state.md  LOOP.md=yes  budget=yes  run-log=yes  gate=no
 Status:  HEALTHY (exit 0)
@@ -76,13 +76,13 @@ Notes:
   · Could not parse loop-sync JSON output
 ```
 
-"L2" in that output is the tool's score for how complete the files are. It is not the operating level, which stays L1. The doctor's suggestions (a `docs/safety.md`, issue and PR templates, workflows) were not taken: the denylist and merge policy are in `loop-constraints.md`, and adding workflows is outside a report-only setup. MCP is not required for this pattern; a run reads issues with the `gh` CLI.
+"L3" in that output is the tool's score for how complete the files are. It is not the operating level, which stays L1, and it is not evidence of a loop run: none has been made. A run of the same command before the scaffold commit existed printed `100/100 L2` with "Strong structure but no proven loop runs yet". The score rose because the tool counts any commit of the last 14 days that touches `loop-run-log.md` or a `*state.md` file as loop activity (read in the `loop-audit` source of the package), and the scaffold commit is such a commit. Expect it to fall back to L2 once that commit is older than 14 days and no run has been logged. The doctor's suggestions (a `docs/safety.md`, issue and PR templates, workflows) were not taken: the denylist and merge policy are in `loop-constraints.md`, and adding workflows is outside a report-only setup. MCP is not required for this pattern; a run reads issues with the `gh` CLI.
 
 `npx --yes @cobusgreyling/loop@0.2.0 status .` exited 0:
 
 ```
   Pattern:  issue-triage
-  Ready:    100/100  L2
+  Ready:    100/100  L3
   State:    issue-triage-state.md · not yet run
   Budget:   loop-budget.md  · gate=no  · constraints=yes
 
