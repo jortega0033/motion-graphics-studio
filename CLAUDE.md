@@ -65,7 +65,8 @@ Details and line references are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 3. Each acceptance ID the ticket names (A1 to A12) has a recorded check: the command or browser steps, the fixture, and the observed values. Say "not run" where that is the truth.
 4. For browser work: Chrome version, the steps, and proof that no request left the machine (network panel or a blocked control request).
 5. For export work: the FFmpeg version, the stream report (streams, size, fps, frame count, duration) and the sampled pixel values.
-6. CI is green on the pull request (`gh pr checks`). The service you started is stopped and `git status` shows no stray data files.
+6. The service you started is stopped and `git status` shows no stray data files.
+   Order: local checks (items 1 to 6) first, then Code Reviewer and Reality Checker on the full diff and that recorded output, then a draft pull request (`gh pr create --draft`). CI runs on the draft. Mark it ready (`gh pr ready`) only when CI is green, shown by `gh pr checks` output you recorded; if CI fails, fix, re-run the local checks and both gates, and push. Reality Checker does not judge a CI result; the driver checks it before `gh pr ready`.
 7. `README.md` and the "Delivery status" table in `docs/PRD.md` are updated when the baseline changes, and `docs/ARCHITECTURE.md` when a boundary or invariant changes.
 
 ## Agents and the loop
@@ -97,7 +98,7 @@ Details and line references are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 - **Start and driver.** The owner starts ticket work with `/next-ticket` ([.claude/skills/next-ticket/SKILL.md](.claude/skills/next-ticket/SKILL.md)); that is the go signal for one ticket. It runs the playbook [.claude/skills/implement-ticket/SKILL.md](.claude/skills/implement-ticket/SKILL.md). Ticket labels: `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.
 - **Review gate hook.** `.claude/hooks/role_gate.py` blocks `gh pr create` and `gh pr ready` until Code Reviewer and Reality Checker ran after the last code edit. Start Claude Code with `ROLE_GATE=off` in the environment to switch it off for that session.
 - **Permissions.** [.claude/settings.json](.claude/settings.json): documented commands are allowed; force pushes, pushes to `main`, `gh pr merge`, releases and reads of `.env` are denied; edits to CI, agent configuration and Loop files ask first.
-- **CI.** [.github/workflows/ci.yml](.github/workflows/ci.yml) must be green before a pull request is marked ready.
+- **CI.** [.github/workflows/ci.yml](.github/workflows/ci.yml) runs on the draft pull request and must be green before it is marked ready; the gates run before the draft is opened and do not depend on it.
 - **Pull request and changelog.** Use [.github/pull_request_template.md](.github/pull_request_template.md); add one line per ticket to [CHANGELOG.md](CHANGELOG.md). Security reports: [SECURITY.md](SECURITY.md).
 - **UI and copy.** [docs/ui-quality.md](docs/ui-quality.md) is binding; use the `ui-ux-pro-max` and `unslop` skills as the playbook says.
 - **Merging and releasing** belong to the owner alone ([docs/RELEASING.md](docs/RELEASING.md)). Recorded owner decisions: [docs/owner-decisions.md](docs/owner-decisions.md).

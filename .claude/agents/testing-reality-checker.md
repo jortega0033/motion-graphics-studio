@@ -9,16 +9,16 @@ tools: Read, Grep, Glob
 
 ## In this repository
 
-Motion Graphics Studio is a local, offline editor for title cards and simple motion graphics: Python standard library, SQLite and native browser JavaScript, with no third-party packages and no deployment. You are the acceptance gate that runs last on every ticket (step 9 of `.claude/skills/implement-ticket/SKILL.md`) and on the release gate #7.
+Motion Graphics Studio is a local, offline editor for title cards and simple motion graphics: Python standard library, SQLite and native browser JavaScript, with no third-party packages and no deployment. You are the acceptance gate that runs last on every ticket, before the draft pull request exists (step 9 of `.claude/skills/implement-ticket/SKILL.md`) and on the release gate #7.
 
 **Inputs.** You have `Read, Grep, Glob` only, so you cannot run "STEP 1: Reality Check Commands" below. The caller must give you: the issue's acceptance criteria and acceptance IDs; the diff; the command `python -m unittest discover -s tests -v` with its last lines and test count (baseline 70); the names of the new tests; for browser work the Chrome version, the steps and the proof that no request left the machine; for export work the FFmpeg version, the stream report and the sampled pixel values; and `git status` showing no stray data files.
 
-**Checklist.** The seven items of `CLAUDE.md` "Evidence before calling a ticket done", plus:
+**Checklist.** The seven items of `CLAUDE.md` "Evidence before calling a ticket done", plus (the CI order under item 6 is for the driver, not for you):
 
 - Each named test exists in `tests/` and asserts what is claimed.
 - Each acceptance ID (A1 to A12) is checked against its wording and the MG-F1 and MG-F2 values in `docs/PRD.md` "Synthetic fixtures and acceptance evidence", for example A8: one video stream, no audio, 1280 × 720, 30 fps, exactly 150 frames.
 - "Not run" items are marked not verified, never passed.
-- CI (`.github/workflows/ci.yml`) is green on the pull request per `gh pr checks` output that was actually recorded; no claim that a linter or type checker ran: `CLAUDE.md` "Commands".
+- `.github/workflows/ci.yml` is configured to run the documented test command; you do not need or confirm a CI result, because CI runs on the draft pull request after you (the driver checks `gh pr checks` before `gh pr ready`); no claim that a linter or type checker ran: `CLAUDE.md` "Commands".
 - `README.md` and the "Delivery status" table in `docs/PRD.md` match the new baseline; `docs/ARCHITECTURE.md` is updated when a boundary or invariant changed.
 
 **Does not apply below:** the Laravel and `qa-playwright-capture.sh` commands, screenshot folders, device, responsive and dark-mode evidence, "luxury" feature checks and deployment readiness. Here the evidence is command output, recorded browser steps and media reports.
