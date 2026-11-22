@@ -85,3 +85,4 @@ This pass added, without changing any role body or upstream text beyond the line
 - The review gate hook `.claude/hooks/role_gate.py` (gate roles Code Reviewer and Reality Checker, both installed), `.claude/settings.json`, `.github/workflows/ci.yml`, the pull request template, CODEOWNERS, issue template, Dependabot config, `SECURITY.md`, `CHANGELOG.md` and `docs/RELEASING.md`.
 - The `/next-ticket` driver skill, the `ui-ux-pro-max` and `unslop` skills (each with its own `PROVENANCE.md`), `docs/ui-quality.md` and `docs/owner-decisions.md`.
 - Updated `implement-ticket` playbook, `CLAUDE.md` "Delivery workflow" and a note in `LOOP.md`.
+- Follow-up review fixes: the "In this repository" sections of Reality Checker, Code Reviewer and Test Automation Engineer now state that CI exists (`.github/workflows/ci.yml`, unittest on Linux and Windows) instead of saying there is none; Reality Checker's checklist now asks for recorded `gh pr checks` output.

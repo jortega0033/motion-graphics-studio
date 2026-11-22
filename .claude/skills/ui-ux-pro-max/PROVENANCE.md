@@ -13,3 +13,5 @@
 3. Added: this file and `LICENSE`.
 
 Requires Python 3, no third-party packages. Smoke test: `python .claude/skills/ui-ux-pro-max/scripts/search.py "keyboard focus modal" --domain ux -n 1`.
+
+Note: the `data/` directory needed a `!.claude/skills/ui-ux-pro-max/data/` exception in `.gitignore`, because the unanchored `data/` rule would otherwise exclude the skill's data files.

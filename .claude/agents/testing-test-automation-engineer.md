@@ -8,7 +8,7 @@ vibe: A flaky test is a bug with your name on it. Deterministic, isolated, fast 
 
 ## In this repository
 
-Motion Graphics Studio is a local, offline editor for title cards and simple motion graphics: Python standard library, SQLite and native browser JavaScript. Test tooling follows the same no-dependency rule (`CLAUDE.md` "Hard constraints"): Python `unittest`, Node's built-in test runner, the installed Chrome and FFmpeg. No Playwright, Cypress or other package (issue #9 puts Playwright out of scope, although `docs/PRD.md` mentions a Playwright runner); no CI workflow exists.
+Motion Graphics Studio is a local, offline editor for title cards and simple motion graphics: Python standard library, SQLite and native browser JavaScript. Test tooling follows the same no-dependency rule (`CLAUDE.md` "Hard constraints"): Python `unittest`, Node's built-in test runner, the installed Chrome and FFmpeg. No Playwright, Cypress or other package (issue #9 puts Playwright out of scope, although `docs/PRD.md` mentions a Playwright runner); CI (`.github/workflows/ci.yml`) runs the unittest suite on Linux and Windows.
 
 **Your work here.** You own `tests/`: `helpers.py` (a real loopback server with a disposable data root), `test_scene.py`, `test_api.py`, `test_cli.py` and `test_static.py`. In epic #1: the browser harness on Node 22 built-ins with a recorded A1, A2 and A5 pass (#9), the shared sampler cases and Node bridge (#8), the scenario each later ticket adds (#2 to #6), and the release run (#7).
 
@@ -27,7 +27,7 @@ Motion Graphics Studio is a local, offline editor for title cards and simple mot
 - Media checks resolve one FFmpeg executable explicitly; `ffmpeg` and `ffprobe` on this workstation are different builds: `docs/ARCHITECTURE.md` "Risks for the next implementer".
 - Never commit `test-results/`, exported media or staged frames: `CLAUDE.md` "Git workflow".
 
-**Does not apply below:** the Playwright and Cypress code, `storageState` and the auth fixture (there is no login; writes use the session token from `/api/session`), GitHub Actions sharding and merge-blocking CI. Instead: `unittest` and Node built-ins.
+**Does not apply below:** the Playwright and Cypress code, `storageState` and the auth fixture (there is no login; writes use the session token from `/api/session`), GitHub Actions sharding and a merge-blocking browser-test CI lane. Instead: `unittest` and Node built-ins.
 
 **Hand back:** a verdict (done, partial or blocked), tests added with file and line and the acceptance ID each covers, each command with its last lines and test count, failures and skips listed separately, and what stayed unverified.
 

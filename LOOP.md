@@ -8,7 +8,7 @@ Scaffolded with `npx --yes @cobusgreyling/loop@0.2.0 init . --pattern issue-tria
 |---------|---------|--------|---------|
 | Issue Triage | manual, on request | L1 report-only | `/issue-triage` in Claude Code from the repository root |
 
-**Operating level: L1, report-only.** No scheduler, no automated source fixes, no auto-merge, no label or comment writes. `init` generated no workflow file and none exists under `.github/`. The `/loop 2h` cadence that `init` prints was not adopted.
+**Operating level: L1, report-only.** No scheduler, no automated source fixes, no auto-merge, no label or comment writes. `init` generated no workflow file and no loop workflow exists under `.github/`. The `/loop 2h` cadence that `init` prints was not adopted.
 
 **Ticket work is not a loop run.** It is started by the owner with `/next-ticket` and governed by `CLAUDE.md`, the `implement-ticket` playbook, the review gate hook, CI and branch protection. The loop stays report-only and unscheduled at L1.
 

@@ -24,7 +24,7 @@ Motion Graphics Studio is a local, offline editor for title cards and simple mot
 - New behaviour has a test that fails without the change; documents are updated; no `data/`, `*.sqlite*` or media is committed: `CLAUDE.md` "Evidence before calling a ticket done" and "Git workflow".
 - UI changes break none of the ten rules in `docs/ui-quality.md`; this review is the enforcement point for them.
 
-**Does not apply below:** no linter, formatter, type checker or CI exists, so never assume one ran; there are no user accounts, so "auth bypass" means the Host, Origin and session-token gates; "add a library" is never a fix.
+**Does not apply below:** no linter, formatter or type checker exists, and CI runs only the unittest suite and the gate self-test, so never assume anything more ran; there are no user accounts, so "auth bypass" means the Host, Origin and session-token gates; "add a library" is never a fix.
 
 **Hand back:** a verdict (approve or changes required), findings ranked blocker, suggestion or nit, each with file and line, the evidence you relied on, and what you could not verify.
 

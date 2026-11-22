@@ -52,7 +52,7 @@ Details and line references are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Git workflow
 
-- `main` is the default branch. Branch protection (pull request required, CI jobs required) is set by the owner; run the checks above yourself before you push.
+- `main` is the default branch. Branch protection (pull request required, CI jobs required) is set on GitHub after this tooling is merged; run the checks above yourself before you push.
 - One branch per issue, named `feat/<issue>-<slug>`, `fix/<issue>-<slug>` or `docs/<slug>`. Open a pull request against `main` that references the issue. Do not commit to `main` directly.
 - Commit subjects follow the existing style: `feat: ...`, `fix: ...`, `docs: ...`, `test: ...`, `chore: ...`.
 - Do not push, close issues or delete branches unless the owner asked for it in the current session; a `/next-ticket` run counts as that request for its ticket branch and pull request. Never merge: only the owner merges and releases.
