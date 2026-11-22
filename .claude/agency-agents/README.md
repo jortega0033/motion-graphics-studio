@@ -62,8 +62,17 @@ Pick a new upstream revision, fetch the same paths, re-apply the `tools` line to
 
 ## Local change: automatic delegation (2026-11-22)
 
-One sentence beginning "Use proactively" was appended to the `description:` line of every Agency Agents role in `.claude/agents/` (not to `loop-verifier`). Claude Code uses that field to decide when to delegate, so the roles now run during ticket work without being named. Nothing else in the role files changed.
+Two local changes were made to every Agency Agents role in `.claude/agents/` (not to `loop-verifier`):
 
-This supersedes any statement above that a role file is unmodified or that the `tools:` line is the only local change. To compare a role with the pinned upstream file, remove that sentence (and the `tools:` line where one was added) first.
+1. One sentence beginning "Use proactively" was appended to the `description:` line. Claude Code uses that field to decide when to delegate, so the roles now run during ticket work without being named.
+2. A section headed `## In this repository` was inserted directly after the closing `---` of the frontmatter, before the upstream text. It is project-specific text written for this repository, not upstream text: the project and its constraints, the files and tickets the role covers, the commands from `CLAUDE.md` (or, for a read-only role, the output the caller must supply), a checklist of this project's invariants, the parts of the generic text that do not apply here, and what the role hands back. It ends with the sentence "This section and CLAUDE.md override the generic text below wherever they differ."
 
-The steps at which each role runs are in `.claude/skills/implement-ticket/SKILL.md`.
+Nothing else in the role files changed: the rest of the frontmatter and the upstream text below the inserted section are as fetched.
+
+This supersedes any statement above that a role file is unmodified, byte-identical or that the `tools:` line is the only local change. To compare a role with the pinned upstream file, remove the "Use proactively" sentence, the whole "In this repository" section (the heading through the override sentence, and the blank line after it) and the `tools:` line where one was added. `git hash-object` equals the upstream blob only after that.
+
+When updating to a new upstream revision, re-apply both changes and re-check every "In this repository" section against `CLAUDE.md` and `docs/ARCHITECTURE.md`.
+
+The steps at which each role runs are in `.claude/skills/implement-ticket/SKILL.md` and in "Agents and the loop" in `CLAUDE.md`.
+
+Verification, 2026-11-22: from the repository root, `claude -p "List every project subagent defined in .claude/agents with its exact name and tools, say for each whether its instructions begin with a section titled In this repository, and say whether a skill named implement-ticket is available. Plain list, no commentary." --model haiku` (Claude Code 2.1.323) exited 0. It listed all eight Agency Agents roles under their exact names, each reported as beginning with "In this repository"; the five reviewers with `Read, Grep, Glob` and Backend Architect, Frontend Developer and Test Automation Engineer with no `tools` line (inheriting the session's tools); `loop-verifier` with `Read, Grep, Glob` and no such section; and the skill `implement-ticket` as available. The check was run once, on the working tree that this change commits. It shows that the files are found and parsed; it does not exercise automatic delegation on a real ticket.

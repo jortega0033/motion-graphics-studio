@@ -34,7 +34,7 @@ There is no linter, formatter, type checker or CI workflow in this repository. D
 | What is built today, demo flow, limitations | [README.md](README.md) |
 | How the code is actually structured, what is implemented, planned or unverified, and where the PRD and code disagree | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
 | What to build next and in which order | GitHub epic #1 and its child issues |
-| Agent roles and the triage loop | [.claude/agency-agents/README.md](.claude/agency-agents/README.md), [LOOP.md](LOOP.md) |
+| Agent roles, the ticket playbook and the triage loop | "Agents and the loop" below, [.claude/skills/implement-ticket/SKILL.md](.claude/skills/implement-ticket/SKILL.md), [LOOP.md](LOOP.md) |
 
 When the PRD and the code disagree, the code and the PRD's "Delivery status" section describe the baseline; the rest of the PRD describes the target. Record any new disagreement in `docs/ARCHITECTURE.md` instead of silently picking one.
 
@@ -69,20 +69,24 @@ Details and line references are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Agents and the loop
 
-- Project agent roles live in `.claude/agents/`. Reviewer roles, including the loop's `loop-verifier`, are read-only (`Read, Grep, Glob`). Their generic advice never overrides this file: for example, a role that suggests `npx` tools or a framework does not lift the no-dependency rule.
-- The Loop Engineering setup is L1, report-only and manual. See `LOOP.md`. No scheduler, no automated fixes, no auto-merge.
+**Roles.** Eight project subagents (Agency Agents roles) live in `.claude/agents/`, next to the loop's `loop-verifier`. Each role file starts with an "In this repository" section tailored to this project: its files, commands, invariants, the generic advice that does not apply here, and what it must hand back. That section and this file override the generic upstream text below it; a role that suggests `npx` tools or a framework does not lift the no-dependency rule. Provenance and local changes are in [.claude/agency-agents/README.md](.claude/agency-agents/README.md).
 
-## Ticket implementation: agent roles run automatically
+**Ticket work.** When asked to implement, continue or finish a GitHub issue, follow the playbook [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md). Claude Code loads it on its own for ticket work; `/implement-ticket <issue number>` starts it by hand. Delegate to the roles without waiting to be asked; the "Use proactively ..." sentence that ends each role's `description` is what triggers it.
 
-When asked to implement, continue or finish a GitHub issue, follow the playbook in [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md). Claude Code loads it on its own for ticket work; `/implement-ticket <issue number>` starts it by hand.
+| When | Role | Trigger |
+| --- | --- | --- |
+| Before coding | Codebase Onboarding Engineer | The ticket is in an unfamiliar area |
+| Before coding | Software Architect | A module boundary, data model, storage schema, HTTP contract or dependency changes |
+| While coding | Backend Architect | `motion_studio/*.py` changes |
+| While coding | Frontend Developer | `motion_studio/static/` changes |
+| While coding | Test Automation Engineer | `tests/` changes, or acceptance criteria need new automated checks |
+| After coding | Accessibility Auditor | Interface markup, keyboard handling or focus changed |
+| Review gate, every ticket | Code Reviewer | Always, on the full diff |
+| Acceptance gate, every ticket | Reality Checker | Always, last, against the acceptance criteria and the recorded evidence |
 
-Delegate to the project subagents in `.claude/agents/` without waiting to be asked:
-
-- **Before coding:** Codebase Onboarding Engineer and Software Architect, as their descriptions say.
-- **While coding:** the implementing role that matches the files being changed.
-- **After coding:** each specialist reviewer whose trigger matches the change.
-- **On every ticket, before it is called done:** Code Reviewer, then Reality Checker.
-- The session that wrote a change does not count as its reviewer.
+- Both gates run on every ticket, whatever its size. No change is exempt.
+- The session or role that wrote a change does not count as its reviewer.
+- The five reviewers (the two before coding, the auditor and both gates) and `loop-verifier` are read-only (`Read, Grep, Glob`) and cannot run commands: give them the diff, the acceptance criteria and the recorded command output.
 - List the roles that ran and their verdicts in the pull request description under "Agent roles run".
 
-Each role's `description` ends with a "Use proactively ..." sentence, which is what makes Claude Code delegate to it without being told.
+**Loop.** The Loop Engineering setup is L1, report-only and manual. See `LOOP.md`. No scheduler, no automated fixes, no auto-merge.
