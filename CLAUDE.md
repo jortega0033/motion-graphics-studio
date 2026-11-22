@@ -88,16 +88,16 @@ Details and line references are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 - Both gates run on every ticket, whatever its size. No change is exempt.
 - The session or role that wrote a change does not count as its reviewer.
-- The five reviewers (the two before coding, the auditor and both gates) and `loop-verifier` are read-only (`Read, Grep, Glob`) and cannot run commands: give them the diff, the acceptance criteria and the recorded command output.
+- The five reviewers (the two before coding, the auditor and both gates) and `loop-verifier` are read-only (`Read, Grep, Glob`) and cannot run commands: give them the diff, the acceptance criteria and the recorded command output as files in `.claude/state/review/` (written before each gate), and list acceptance steps that need a person under "Owner checks" in the pull request.
 - List the roles that ran and their verdicts in the pull request description under "Agent roles run".
 
 **Loop.** The Loop Engineering setup is L1, report-only and manual. See `LOOP.md`. No scheduler, no automated fixes, no auto-merge.
 
 ## Delivery workflow
 
-- **Start and driver.** The owner starts ticket work with `/next-ticket` ([.claude/skills/next-ticket/SKILL.md](.claude/skills/next-ticket/SKILL.md)); that is the go signal for one ticket. It runs the playbook [.claude/skills/implement-ticket/SKILL.md](.claude/skills/implement-ticket/SKILL.md). Ticket labels: `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.
+- **Start and driver.** The owner starts ticket work with `/next-ticket` ([.claude/skills/next-ticket/SKILL.md](.claude/skills/next-ticket/SKILL.md)); that is the go signal for one ticket. It runs the playbook [.claude/skills/implement-ticket/SKILL.md](.claude/skills/implement-ticket/SKILL.md). Ticket labels: `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`, `tracking`. It picks leaf tickets only (never the epic, a `tracking` ticket or one with open sub-issues), the last sub-issue's pull request also closes its parent, and it waits for CI without polling (it ends the turn with "Draft pull request #N is waiting for CI" and reads `gh pr checks` once when woken).
 - **Review gate hook.** `.claude/hooks/role_gate.py` blocks `gh pr create` and `gh pr ready` until Code Reviewer and Reality Checker ran after the last code edit. Start Claude Code with `ROLE_GATE=off` in the environment to switch it off for that session.
-- **Permissions.** [.claude/settings.json](.claude/settings.json): documented commands are allowed; force pushes, pushes to `main`, `gh pr merge`, releases and reads of `.env` are denied; edits to CI, agent configuration and Loop files ask first.
+- **Permissions.** [.claude/settings.json](.claude/settings.json): documented commands are allowed; force pushes, pushes to `main`, `gh pr merge`, releases and reads of `.env` are denied; edits to CI, agent configuration and Loop files ask first, at any depth so ticket worktrees ask too (shell edits are not covered; a ticket does not change agent configuration).
 - **CI.** [.github/workflows/ci.yml](.github/workflows/ci.yml) runs on the draft pull request and must be green before it is marked ready; the gates run before the draft is opened and do not depend on it.
 - **Pull request and changelog.** Use [.github/pull_request_template.md](.github/pull_request_template.md); add one line per ticket to [CHANGELOG.md](CHANGELOG.md). Security reports: [SECURITY.md](SECURITY.md).
 - **UI and copy.** [docs/ui-quality.md](docs/ui-quality.md) is binding; use the `ui-ux-pro-max` and `unslop` skills as the playbook says.
