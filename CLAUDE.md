@@ -24,7 +24,7 @@ Verified on Windows 11 with Python 3.13.14 at commit `3ec6efb`. On Linux use `py
 
 Tests start a real loopback server on an ephemeral port with a disposable data directory, so they need no running service. Run the suite once and serially. Stop any service you start (Ctrl+C) and never point a test at `./data`.
 
-There is no linter, formatter or type checker. CI (`.github/workflows/ci.yml`) runs the test command on Linux and Windows; do not claim a check ran unless you saw its output.
+There is no linter, formatter or type checker. CI (`.github/workflows/ci.yml`) runs the unittest suite and the gate hook self-test on pull requests, on Linux and Windows; do not claim a check ran unless you saw its output.
 
 ## Sources of truth
 

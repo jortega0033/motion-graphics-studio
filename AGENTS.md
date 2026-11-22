@@ -24,6 +24,6 @@ To implement a GitHub issue, follow the steps and gates in [.claude/skills/imple
 
 ## Loop conventions
 
-- The loop is L1: report-only, started by hand. No scheduler, no automated fixes, no auto-merge.
+- The loop is L1: report-only, started by hand. No loop workflow or scheduler, no automated fixes, no auto-merge.
 - A triage run may change only `issue-triage-state.md` and `loop-run-log.md`.
 - See [LOOP.md](LOOP.md) for the command, human gates and recorded health checks, and [loop-constraints.md](loop-constraints.md) for the binding rules.
