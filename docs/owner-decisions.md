@@ -15,7 +15,7 @@ Decisions the owner made for this repository on 2026-11-22, with the file that i
     - #6 (and every ticket, epic #1 item 1), platform: both Linux and Windows kept working; #6 implements the data-root lock for both (`fcntl.flock` and `msvcrt.locking`).
     - #9, browser automation: a small Chrome DevTools Protocol client on Node 22 built-ins; Playwright is not added.
     - #3, Copy Draft into New Project: `POST /api/projects` accepts an optional `scene`.
-    - #6, size: one issue with four ordered slices, each its own pull request. The ticket's own rule stays: the slice 1 design note needs the owner's recorded approval before slice 1 code starts (flag in issue).
+    - #6, size: split into 13 sub-issues, #65 to #77 (owner, 2026-11-22; it was one issue with four ordered slices). The design-note sub-issue (#65) is agreed with the owner, with the approval recorded, before any code. Each sub-issue is its own pull request.
     - #4, #5, #8, #7, Chrome playback check: #4 checks the encoder and a decoder on the server with a generated self-test clip and asks the page for `canPlayType`; real playback is observed in #8, in the A8 scenario of #5 and in #7. The page does not play the self-test clip before each export.
 11. **Rust (where present) is verified in CI only.** Date: 2026-11-22. Not applicable: this repository has no Rust.
 12. **The ten UI rules in `docs/ui-quality.md` are binding, and the `ui-ux-pro-max` and `unslop` skills are installed and used for UI work and for copy.** Date: 2026-11-22. Implemented in: `docs/ui-quality.md`, `.claude/skills/ui-ux-pro-max/`, `.claude/skills/unslop/`, `.claude/skills/implement-ticket/SKILL.md`.
