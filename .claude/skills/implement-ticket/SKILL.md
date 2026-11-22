@@ -12,7 +12,7 @@ The project subagents in `.claude/agents/` are part of the work. Delegate to the
 
 ## Steps
 
-1. **Read the ticket.** `gh issue view <number>` and the epic it belongs to. Work only on a leaf ticket: a ticket labelled `tracking` or with open sub-issues is a container, so work its first ready sub-issue instead (`gh api repos/jortega0033/motion-graphics-studio/issues/<n>/sub_issues`). Check that every prerequisite issue is closed and that no owner decision named in the ticket is still open. If the ticket is blocked, stop and say what blocks it.
+1. **Read the ticket.** `gh issue view <number>` and the epic it belongs to. Work only on a leaf ticket: a ticket labelled `tracking` or with open sub-issues is a container, so do not work on it: stop and list its open sub-issues (`gh api repos/jortega0033/motion-graphics-studio/issues/<n>/sub_issues`); `/next-ticket` picks the leaf. Check that every prerequisite issue is closed and that no owner decision named in the ticket is still open. If the ticket is blocked, stop and say what blocks it.
 2. **Read the rules.** `CLAUDE.md`, then the architecture notes it links to.
 3. **Orient and check the approach.** Delegate as the table "Before coding" says. Settle open design questions before writing code. For a UI ticket, run the `ui-ux-pro-max` skill first (design-system search for the product type, `python .claude/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system`) and read `docs/ui-quality.md`.
 4. **Branch** as the Git workflow in `CLAUDE.md` says. Never work on the default branch.
@@ -59,6 +59,6 @@ The project subagents in `.claude/agents/` are part of the work. Delegate to the
 - The session or role that wrote a change does not count as its reviewer.
 - Read-only reviewers cannot run commands. Write the diff and the recorded command output to `.claude/state/review/` (`git diff --stat origin/main...HEAD`, `git diff origin/main...HEAD`, the check outputs), then name those files and the acceptance criteria in the request.
 - Acceptance steps that need a person (for example by hand in a normal browser) are done as far as an agent can (scripted or headless, with evidence); list the rest under "Owner checks" in the pull request. Reality Checker accepts that only for steps the ticket marks as manual.
-- Do not change agent configuration (`.claude/agents/`, `.claude/skills/`, `.claude/hooks/`, `.claude/settings.json`) in a ticket, by editor or by shell; `ask` rules cover editors only.
+- Do not change `.claude/agents/`, `.claude/skills/`, `.claude/hooks/`, `.claude/agency-agents/`, `.claude/settings.json`, `.github/`, `LOOP.md`, `CLAUDE.md` or `AGENTS.md` in a ticket, by editor or by shell (only `.claude/state/review/` is written); `ask` rules cover editors only.
 - Where a role's general advice (frameworks, dependencies, cloud services) conflicts with `CLAUDE.md`, `CLAUDE.md` wins.
 - In the pull request description, add a section "Agent roles run" listing each role that ran, what it was asked and its verdict, and any step you did yourself because a role was missing.

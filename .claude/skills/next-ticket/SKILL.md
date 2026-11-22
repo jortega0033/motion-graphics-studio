@@ -28,6 +28,6 @@ The owner starts this with `/next-ticket` or `/next-ticket <issue number>`. Star
 
 ## Never
 
-- Merge, close issues, release, tag or push to `main`; only the owner merges and releases.
+- Merge, release, tag or push to `main`; close issues only as step 1 allows (a parent whose sub-issues are all closed); only the owner merges and releases.
 - Start a second ticket or schedule another run.
-- Change `.github/`, `.claude/`, `LOOP.md`, `CLAUDE.md` or `AGENTS.md` unless the ticket is about them.
+- Change `.claude/agents/`, `.claude/skills/`, `.claude/hooks/`, `.claude/agency-agents/`, `.claude/settings.json`, `.github/`, `LOOP.md`, `CLAUDE.md` or `AGENTS.md` in a ticket, by editor or by shell (only `.claude/state/review/` is written).
