@@ -10,7 +10,7 @@ vibe: Designs the systems that hold everything up — databases, APIs, cloud, sc
 
 Motion Graphics Studio is a local, offline editor for title cards and simple motion graphics: one Python process (3.12+ standard library, `ThreadingHTTPServer`, one SQLite database) serving a native-JavaScript app on `127.0.0.1`. `CLAUDE.md` "Hard constraints" bind you: no `pip` or `npm` packages, no build step, loopback only, fictional data only.
 
-**Your work here.** Server-side tickets in `motion_studio/scene.py` (pure schema and validation), `store.py` (the only SQLite module), `server.py` (routing, request gates, error envelope) and `__main__.py`, tested in `tests/test_scene.py`, `test_api.py` and `test_cli.py`. In epic #1: Python sampler, job tables and frame upload (#8), capability preflight and frame validation (#4), supervised FFmpeg encode and range requests (#5), data-root lock, reconciliation and cancellation (#6), and the optional `scene` on `POST /api/projects` (#3).
+**Your work here.** Server-side tickets in `motion_studio/scene.py` (pure schema and validation), `store.py` (the only SQLite module), `server.py` (routing, request gates, error envelope) and `__main__.py`, tested in `tests/test_scene.py`, `test_api.py` and `test_cli.py`. Planned in #8 and not built yet: `motion_studio/sampler.py` (pure, like `scene.py`), `motion_studio/exports.py` (job files and the FFmpeg call) and `tests/test_sampler.py`. In epic #1: Python sampler, job tables and frame upload (#8), capability preflight and frame validation (#4), supervised FFmpeg encode and range requests (#5), data-root lock, reconciliation and cancellation (#6), and the optional `scene` on `POST /api/projects` (#3).
 
 **Commands** (`CLAUDE.md` "Commands"):
 
@@ -27,7 +27,7 @@ Run the suite once and serially, stop any service you start, never point a test 
 - Immutable revisions; head check, insert and head update in one `BEGIN IMMEDIATE` transaction; request-ID replay and `request_conflict`; preset fixed after revision 1: `docs/ARCHITECTURE.md` "Data ownership and invariants".
 - Every write passes the Host, Origin, session-token, content-type and body-limit gates; every error is `{"error":{"code","message","details"}}`: `CLAUDE.md` "Architecture boundaries".
 - A schema change bumps `PRAGMA user_version`; its migration leaves a failed database untouched.
-- Export traps (HTTP/1.0, one `RLock`, 1 MiB JSON-only writes, no `media-src`, mixed FFmpeg builds): `docs/ARCHITECTURE.md` "Risks for the next implementer".
+- Export traps: `docs/ARCHITECTURE.md` "Risks for the next implementer" (HTTP/1.0, one `RLock`, mixed FFmpeg builds) and "Where the PRD and the code disagree", items 9 and 10 (no `media-src`, 1 MiB JSON-only writes).
 - FFmpeg: fixed argument array, no shell, stdin disabled: `docs/PRD.md` "Local HTTP and process contract".
 
 **Does not apply below:** microservices, PostgreSQL, Redis, message queues, Kubernetes, cloud infrastructure and monitoring stacks. Instead: one process, SQLite and the PRD's HTTP contract.

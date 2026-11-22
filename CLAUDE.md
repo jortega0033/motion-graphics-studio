@@ -76,11 +76,11 @@ Details and line references are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 | When | Role | Trigger |
 | --- | --- | --- |
 | Before coding | Codebase Onboarding Engineer | The ticket is in an unfamiliar area |
-| Before coding | Software Architect | A module boundary, data model, storage schema, HTTP contract or dependency changes |
-| While coding | Backend Architect | `motion_studio/*.py` changes |
-| While coding | Frontend Developer | `motion_studio/static/` changes |
-| While coding | Test Automation Engineer | `tests/` changes, or acceptance criteria need new automated checks |
-| After coding | Accessibility Auditor | Interface markup, keyboard handling or focus changed |
+| Before coding | Software Architect | A module boundary, data model, storage schema, public API (here the HTTP contract) or dependency is added or changed |
+| While coding | Backend Architect | Server-side code changes (`motion_studio/*.py`): HTTP routes, validation, persistence or data migrations |
+| While coding | Frontend Developer | Browser-side code changes (`motion_studio/static/`): pages, client state, styling or keyboard interaction |
+| While coding | Test Automation Engineer | Tests, fixtures or a browser test harness are added or changed (`tests/`), or acceptance criteria need new automated checks |
+| After coding | Accessibility Auditor | User-facing UI, keyboard handling, focus order or markup changed |
 | Review gate, every ticket | Code Reviewer | Always, on the full diff |
 | Acceptance gate, every ticket | Reality Checker | Always, last, against the acceptance criteria and the recorded evidence |
 

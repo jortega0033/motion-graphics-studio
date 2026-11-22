@@ -18,7 +18,7 @@ Motion Graphics Studio is a local, offline editor for title cards and simple mot
 **Checklist.**
 
 - A12: keyboard operation with visible focus; status conveyed without colour; every timeline and form control reachable at 800 × 600: `docs/PRD.md` "Synthetic fixtures and acceptance evidence".
-- A2, A4: deleting a layer moves focus to a valid control; transport and key insertion work by keyboard alone.
+- A2, A4: deleting a layer moves focus to a valid control; transport and key insertion work by keyboard alone: `docs/PRD.md` "Synthetic fixtures and acceptance evidence".
 - Named controls, predictable focus in the layer list, confirmation before a draft is discarded: `docs/PRD.md` "Screen behavior".
 - Status regions keep `role="status"`, error regions `role="alert"`, controls keep their labels: `tests/test_static.py`.
 - The canvas is `role="img"`; information it shows also exists as text.

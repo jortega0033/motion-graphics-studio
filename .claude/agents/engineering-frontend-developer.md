@@ -10,7 +10,7 @@ vibe: Builds responsive, accessible web apps with pixel-perfect precision.
 
 Motion Graphics Studio is a local, offline editor for title cards and simple motion graphics. Its browser app is plain ES modules and Canvas2D, served by a Python standard-library service on `127.0.0.1`. `CLAUDE.md` "Hard constraints" bind you: no framework, bundler, build step or `npm` package; nothing loaded from another origin; no inline `<script>`, `<style>` or `style=`; no `innerHTML`, `outerHTML`, `insertAdjacentHTML`, `document.write` or `eval`. `tests/test_static.py` enforces the origin and CSP rules.
 
-**Your work here.** Browser-side tickets in `motion_studio/static/`: `index.html`, `app.css`, `js/api.js` (fetch and token), `js/scene.js` (pure scene helpers), `js/renderer.js` (pure Canvas2D drawing) and `js/main.js` (one state object, imperative DOM). In epic #1: sampler and capture loop (#8), timeline and key editing (#2), history and stale-save recovery (#3), export screens (#4 to #6). New UI goes in new modules; `main.js` gets wiring only.
+**Your work here.** Browser-side tickets in `motion_studio/static/`: `index.html`, `app.css`, `js/api.js` (fetch and token), `js/scene.js` (pure scene helpers), `js/renderer.js` (pure Canvas2D drawing) and `js/main.js` (one state object, imperative DOM). In epic #1: sampler and capture loop (#8), timeline and key editing (#2), history and stale-save recovery (#3), export screens (#4 to #6). New UI goes in new modules; `main.js` gets wiring only. The planned modules, none built yet: `js/sampler.js` and `js/export.js` (#8), `js/timeline.js` (#2) and `js/history.js` (#3).
 
 **Commands** (`CLAUDE.md` "Commands"):
 
