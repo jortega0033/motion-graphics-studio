@@ -90,6 +90,10 @@ Order of checks inside a save matters to clients: scene validation runs before t
 9. **Content Security Policy against the planned player.** The CSP is `default-src 'none'` with no `media-src` (`server.py:22-26`), so a `<video>` element pointing at `/api/exports/{id}/media` would be blocked. The export work must add `media-src 'self'` and update the test that pins the header.
 10. **Body rules against the planned frame upload.** Every write must be `application/json` and at most 1 MiB (`server.py:317-320`, `19`). The PRD's `PUT /api/exports/{id}/frames/{f}` carries a PNG of up to 2.5 MiB, so that route needs its own content type and limit.
 
+## Delivery order
+
+The remaining work is tracked by epic [#1](https://github.com/jortega0033/motion-graphics-studio/issues/1), which lists its child issues in dependency order with estimates. The PRD's milestone table makes M3 depend on M2, so it reads as a serial M2 → M3 → M4. The only real dependency between them is the shared frame sampler, so the work is delivered differently: first an end-to-end prototype (#8, sampler plus a happy-path capture and encode of MG-F1) in parallel with a browser acceptance harness (#9); then two parallel tracks, the editor track (#2 keyframe editing, then #3 history and restore) and the export track (#4 capture, then #5 encode and player, then #6 recovery and the data-root lock); both join at the release gate (#7). The acceptance IDs per milestone are unchanged. Nothing in this section is built yet.
+
 ## Risks for the next implementer
 
 - **HTTP/1.0 and threads.** Each request is a new connection (`server.py:171`). Single-range media responses (206 and 416), 150 to 300 sequential PNG uploads and a long-running encode all have to work inside this server, or the protocol version must change with care for `Content-Length` on every response.
