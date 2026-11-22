@@ -22,6 +22,7 @@ Motion Graphics Studio is a local, offline editor for title cards and simple mot
 - A schema change bumps `PRAGMA user_version` with a safe migration.
 - File I/O and the encoder stay outside the store lock: `docs/ARCHITECTURE.md` "Risks for the next implementer".
 - New behaviour has a test that fails without the change; documents are updated; no `data/`, `*.sqlite*` or media is committed: `CLAUDE.md` "Evidence before calling a ticket done" and "Git workflow".
+- UI changes break none of the ten rules in `docs/ui-quality.md`; this review is the enforcement point for them.
 
 **Does not apply below:** no linter, formatter, type checker or CI exists, so never assume one ran; there are no user accounts, so "auth bypass" means the Host, Origin and session-token gates; "add a library" is never a fix.
 

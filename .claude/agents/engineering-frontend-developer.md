@@ -26,6 +26,7 @@ Motion Graphics Studio is a local, offline editor for title cards and simple mot
 - Sampler rules and canvas bitmap size: `docs/PRD.md` "Frame sampling and preview parity"; sort keys first (`docs/ARCHITECTURE.md` "Where the PRD and the code disagree", item 6).
 - Keyboard access, visible focus, status as text, use at 800 × 600: `docs/PRD.md` acceptance A12.
 - Keep `REQUIRED_IDS` in `tests/test_static.py` in step with the markup.
+- Changed screens are checked against `docs/ui-quality.md` (ten binding UI rules); start UI work with the `ui-ux-pro-max` skill.
 
 **Does not apply below:** React, Vue, Angular, Svelte, TypeScript, Tailwind, service workers, PWA, Core Web Vitals, Lighthouse targets and mobile-first design. Instead: native modules and DOM APIs in the installed Chrome.
 

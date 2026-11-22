@@ -14,14 +14,14 @@ The project subagents in `.claude/agents/` are part of the work. Delegate to the
 
 1. **Read the ticket.** `gh issue view <number>` and the epic it belongs to. Check that every prerequisite issue is closed and that no owner decision named in the ticket is still open. If the ticket is blocked, stop and say what blocks it.
 2. **Read the rules.** `CLAUDE.md`, then the architecture notes it links to.
-3. **Orient and check the approach.** Delegate as the table "Before coding" says. Settle open design questions before writing code.
+3. **Orient and check the approach.** Delegate as the table "Before coding" says. Settle open design questions before writing code. For a UI ticket, run the `ui-ux-pro-max` skill first (design-system search for the product type, `python .claude/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system`) and read `docs/ui-quality.md`.
 4. **Branch** as the Git workflow in `CLAUDE.md` says. Never work on the default branch.
 5. **Implement** inside the ticket's stated scope. Delegate the work to the implementing role that matches the files being changed (table "While coding"). Do not widen scope; note anything else you find as a follow-up.
 6. **Test.** Add or change tests for every acceptance criterion and material edge case, then run the checks listed in `CLAUDE.md`. Record each command and its result.
-7. **Specialist review.** Run every role in the table "After coding" whose trigger matches the change.
+7. **Specialist review.** Run every role in the table "After coding" whose trigger matches the change. For a UI ticket, also check each changed screen against `docs/ui-quality.md` and record the result.
 8. **Review gate, always.** Run Code Reviewer on the full diff. Fix every material finding, re-run the checks, and have the reviewer look again until no material finding is left.
 9. **Acceptance gate, always.** Run Reality Checker with the ticket's acceptance criteria and the evidence you produced. Do not call the ticket done unless it passes.
-10. **Hand off.** Capture the evidence `CLAUDE.md` asks for and commit on the issue branch. Push and open a draft pull request against `main` that references the issue only if the owner asked for it in the current session (`CLAUDE.md` "Git workflow"); otherwise leave the branch local and say so. Do not merge.
+10. **Hand off.** Capture the evidence `CLAUDE.md` asks for and add one line to `CHANGELOG.md` under `Unreleased`. Run the `unslop` skill over user-facing copy, documentation and the pull request text. Commit on the issue branch, push it and open a pull request against `main` with `.github/pull_request_template.md` filled in and `Closes #<issue>`. A `/next-ticket` run is the owner's request to push and open the pull request; outside that run, do it only if the owner asked in the current session. The review gate hook blocks `gh pr create` and `gh pr ready` until Code Reviewer and Reality Checker have run after the last code edit. Mark the pull request ready only after both gates passed on the current diff and CI is green (`gh pr checks`). Only the owner merges; never merge.
 
 ## Roles
 

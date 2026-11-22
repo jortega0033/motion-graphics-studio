@@ -23,6 +23,7 @@ Motion Graphics Studio is a local, offline editor for title cards and simple mot
 - Status regions keep `role="status"`, error regions `role="alert"`, controls keep their labels: `tests/test_static.py`.
 - The canvas is `role="img"`; information it shows also exists as text.
 - The `:focus-visible` outline and the `prefers-reduced-motion` rule in `app.css` stay.
+- Changed screens are also checked against `docs/ui-quality.md` (for example status shown by text or icon, not by a tinted fill alone).
 
 **Does not apply below:** the `npx` axe-core and Lighthouse commands, and VoiceOver, NVDA or JAWS sessions, which you cannot run. Cite WCAG criteria in findings; the project's bar is A12.
 

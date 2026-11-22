@@ -76,3 +76,12 @@ When updating to a new upstream revision, re-apply both changes and re-check eve
 The steps at which each role runs are in `.claude/skills/implement-ticket/SKILL.md` and in "Agents and the loop" in `CLAUDE.md`.
 
 Verification, 2026-11-22: from the repository root, `claude -p "List every project subagent defined in .claude/agents with its exact name and tools, say for each whether its instructions begin with a section titled In this repository, and say whether a skill named implement-ticket is available. Plain list, no commentary." --model haiku` (Claude Code 2.1.323) exited 0. It listed all eight Agency Agents roles under their exact names, each reported as beginning with "In this repository"; the five reviewers with `Read, Grep, Glob` and Backend Architect, Frontend Developer and Test Automation Engineer with no `tools` line (inheriting the session's tools); `loop-verifier` with `Read, Grep, Glob` and no such section; and the skill `implement-ticket` as available. The check was run once, on the working tree that this change commits. It shows that the files are found and parsed; it does not exercise automatic delegation on a real ticket.
+
+## Local change: SDLC kit (2026-11-22)
+
+This pass added, without changing any role body or upstream text beyond the lines below:
+
+- One checklist line naming `docs/ui-quality.md` in the "In this repository" section of Frontend Developer, Code Reviewer and Accessibility Auditor. UI Designer and UX Architect are not installed here, so they got none.
+- The review gate hook `.claude/hooks/role_gate.py` (gate roles Code Reviewer and Reality Checker, both installed), `.claude/settings.json`, `.github/workflows/ci.yml`, the pull request template, CODEOWNERS, issue template, Dependabot config, `SECURITY.md`, `CHANGELOG.md` and `docs/RELEASING.md`.
+- The `/next-ticket` driver skill, the `ui-ux-pro-max` and `unslop` skills (each with its own `PROVENANCE.md`), `docs/ui-quality.md` and `docs/owner-decisions.md`.
+- Updated `implement-ticket` playbook, `CLAUDE.md` "Delivery workflow" and a note in `LOOP.md`.
