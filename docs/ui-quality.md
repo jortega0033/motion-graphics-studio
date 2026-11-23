@@ -21,3 +21,4 @@ Ten binding rules for every screen and every piece of user-facing copy in this r
 - Enforcement is the review gate: Code Reviewer runs on every ticket and checks these rules; Frontend Developer and Accessibility Auditor have this file in their checklists. Rule 1 can be linted with `grep -nE "border-(left|right|inline)" motion_studio/static/app.css`; rule 2 cannot be detected reliably from CSS, so it is a review judgement.
 - These rules sit under the hard constraints in `CLAUDE.md`: no external origin, no inline style, no dependency.
 - Findings against the existing screens are tracked in the epic, not fixed in passing.
+- Colours come from the Pipenzo tokens in [docs/design-tokens.md](design-tokens.md); new UI adds no colour literals.
