@@ -125,9 +125,9 @@ button.danger { border-color: var(--danger); color: var(--danger); }
 .layer-select .layer-name { overflow-wrap: anywhere; min-width: 0; }
 .layer-select .layer-kind { color: var(--muted); font-size: 12px; flex: none; }
 .layer-list li[aria-current="true"] .layer-select {
-  border-color: var(--primary); border-left-color: var(--primary); background: var(--bg-raised);
+  border-color: var(--primary); border-left-color: var(--primary); background: var(--bg-sunken);
 }
-.layer-list li[aria-current="true"] .layer-select::before { content: "\25B6"; color: var(--primary); margin-right: 2px; }
+.layer-list li[aria-current="true"] .layer-select::before { content: "\25B6"; color: var(--fg); margin-right: 2px; }
 
 .stage-frame {
   background: var(--bg-sunken); border: 1px solid var(--border); border-radius: 6px; padding: 8px;

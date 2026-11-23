@@ -6,7 +6,7 @@ The visual system is the Pipenzo "Flow look": black page, Flow-style alpha layer
 
 - Source: `jortega0033/clip-to-reel-studio`, `extension/sidepanel/tokens.css` at commit `a13378ce73e5b27213c9a200fc960ec93afef054` (2026-11-21).
 - Copy: `motion_studio/static/tokens.css`, served at `/static/tokens.css` and linked before `app.css` in `index.html`.
-- Resync: copy the file over, nothing else. Never edit the copy.
+- Resync: write the file from git, not from a working tree (a Windows checkout may hold CRLF): `git -C <clip-to-reel-studio> show <commit>:extension/sidepanel/tokens.css > motion_studio/static/tokens.css`. The blob hash must equal the source blob (`git hash-object motion_studio/static/tokens.css`; `41d6d6db` at `a13378c`). The file is stored with LF. Never edit the copy.
 
 ## Token names by role
 
